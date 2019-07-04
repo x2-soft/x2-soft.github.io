@@ -1,3 +1,21 @@
+# Installation ruby
+
+[맥 OS rbenv 설치](https://rorlab.gitbooks.io/railsguidebook/content/contents/rbenv.html)
+
+# Jekyll Installation
+
+[rbenv환경에서 Jekyll 블로그 생성하고 GitHub Pages에 배포하기](https://lhy.kr/create-jekyll-blog-using-rbenv-and-github-pages)
+
+`
+gem install jekyll bundler github-pages
+`
+
+# Jekyll run server
+
+1. Local 개발환경
+
+    ` bundle exec jekyll serve --watch --config _config.yml `
+
 # Jekyll Theme - Mundana by WowThemes.net
 
 [Live Demo](https://wowthemesnet.github.io/mundana-theme-jekyll/) &nbsp; | &nbsp; 
