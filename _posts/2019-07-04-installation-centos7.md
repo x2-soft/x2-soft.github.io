@@ -2,7 +2,7 @@
 layout: post
 title:  "[STEP BY STEP]Centos 7 설치하기"
 author: jane
-categories: [ Jekyll, tutorial ]
+categories: [ tutorial, 리눅스 ]
 image: assets/images/1.jpg
 tags: [centos7]
 ---
