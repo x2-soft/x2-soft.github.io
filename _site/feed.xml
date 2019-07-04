@@ -1,4 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-04T14:26:04+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mundana</title><subtitle>Mundana is a free Jekyll theme for awesome people like you, Medium like.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/welcome-to-jekyll/" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2019-02-04T00:00:00+09:00</published><updated>2019-02-04T00:00:00+09:00</updated><id>http://localhost:4000/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/welcome-to-jekyll/">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-05T08:00:18+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Mundana</title><subtitle>Mundana is a free Jekyll theme for awesome people like you, Medium like.</subtitle><entry><title type="html">[STEP BY STEP]Centos 7 설치하기</title><link href="http://localhost:4000/installation-centos7/" rel="alternate" type="text/html" title="[STEP BY STEP]Centos 7 설치하기" /><published>2019-07-04T00:00:00+09:00</published><updated>2019-07-04T00:00:00+09:00</updated><id>http://localhost:4000/installation-centos7</id><content type="html" xml:base="http://localhost:4000/installation-centos7/">&lt;p&gt;사실 리눅스를 설치할 일은 그다지 많지 않은것이 현실입니다. 물론 시스템 관리자 입장에서는 자주 있을 수 있는 일지만, 개발자들은 그렇지 않은 경우가 많죠. 하지만, 막상 필요에 의해 설치하는 경우에는 생각이 나지 않아 그때 그때 구글링에 의존해야 하는 경우도 존재 합니다. 그래서, CentOS7 을 설치하는 전 과정을 Step By Step 형식으로 정리해 보았습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;설치전-준비물&quot;&gt;설치전 준비물&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Centos7 이미지 파일&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso&quot;&gt;CentOS7 다운로드&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;iso 파일을 USB 메모리에 저장하기 위한 UTIL 설치&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;http://sourceforge.net/projects/win32diskimager/&quot;&gt;win32diskimager 다운로드&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/win32diskimager.png&quot; alt=&quot;설정&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;설치&quot;&gt;설치&lt;/h2&gt;
+
+&lt;h3 id=&quot;install-centos-7-선택&quot;&gt;Install Centos 7 선택&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/2.png&quot; alt=&quot;Install CentOS 7 선택&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;설치-과정에서-사용할-언어-선택&quot;&gt;설치 과정에서 사용할 언어 선택&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/3.png&quot; alt=&quot;언어 선택&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;소프트웨어-선택s&quot;&gt;소프트웨어 선택(S)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/4.png&quot; alt=&quot;소프트웨어 선택&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;기본환경-선택&quot;&gt;기본환경 선택&lt;/h3&gt;
+
+&lt;p&gt;필요한 패키지들을 별도로 설치하기 위해 최소 설치를 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/5.png&quot; alt=&quot; 선택&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;설치대상-선택&quot;&gt;설치대상 선택&lt;/h3&gt;
+
+&lt;p&gt;자동 파티션 설정을 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/6.png&quot; alt=&quot;설치대상선택&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;디스크-선택-및-파티션-설정&quot;&gt;디스크 선택 및 파티션 설정&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/7.png&quot; alt=&quot;디스크 선택 및 파티션 설정&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;파티션별 설정은 아래와 같이 진행하도록 하겠습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;/boot - 500M ~ 1G&lt;/li&gt;
+  &lt;li&gt;swap - 메모리크기의 2배 정도&lt;/li&gt;
+  &lt;li&gt;/ - 20G&lt;/li&gt;
+  &lt;li&gt;/data - 남은 용량 모두 사용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;boot-파티션-생성&quot;&gt;/boot 파티션 생성&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/8.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/9.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;swap-파티션-생성&quot;&gt;swap 파티션 생성&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/11.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/12.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;-파티션-생성&quot;&gt;/ 파티션 생성&lt;/h3&gt;
+
+&lt;p&gt;파티션을 생성하기에 앞서 장치 유형과 파일 시스템에 대해서 파악후 적절한 선택을 할 수 있도록 합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;lvm&quot;&gt;LVM&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;논리적 스토리지를 생성하여 물리적 디스크 추가, 조정 등의 유연한 관리 및 확장에 용이&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;xfs&quot;&gt;xfs&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;900만 TB 까지 지원이 가능(32비트는 16TB)&lt;/li&gt;
+    &lt;li&gt;마운트된 상태에서도 파일시스템 확장이 가능&lt;/li&gt;
+    &lt;li&gt;포맷시간이 매우 빠름&lt;/li&gt;
+    &lt;li&gt;파일시스템 체크시 매우 빠른 속도를 낼수 있음&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;대용량 위주의 파일시스템에 최적화되어 작은 사이즈의 파일에선 되려 속도 저하가 발생&lt;/li&gt;
+    &lt;li&gt;파일 시스템 문제 발생시 커널 메시지가 나오지 않을 가능성이 존재&lt;/li&gt;
+    &lt;li&gt;디버그 옵션이 없어 삭제된 파일은 복구 불가능&lt;/li&gt;
+    &lt;li&gt;파일시스템 복구시 2TB 당 1GB 의 물리 메모리 필요&lt;/li&gt;
+    &lt;li&gt;별도의 데몬에서 파일 시스템을 관리&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/13.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;data-파티션-생성&quot;&gt;/data 파티션 생성&lt;/h3&gt;
+
+&lt;p&gt;별도의 home 파티션은 생성하지 않습니다. 상황에 따라 적절하게 생성해주시면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/14.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/15.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;변경-사항-저장&quot;&gt;변경 사항 저장&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/16.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;네트웍-관련-설정&quot;&gt;네트웍 관련 설정&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/17.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/18.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/19.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/20.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;설치-시작&quot;&gt;설치 시작&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/21.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/22.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/23.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/25.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>jane</name></author><category term="centos7" /><summary type="html">사실 리눅스를 설치할 일은 그다지 많지 않은것이 현실입니다. 물론 시스템 관리자 입장에서는 자주 있을 수 있는 일지만, 개발자들은 그렇지 않은 경우가 많죠. 하지만, 막상 필요에 의해 설치하는 경우에는 생각이 나지 않아 그때 그때 구글링에 의존해야 하는 경우도 존재 합니다. 그래서, CentOS7 을 설치하는 전 과정을 Step By Step 형식으로 정리해 보았습니다.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/1.jpg" /></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/welcome-to-jekyll/" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2019-02-04T00:00:00+09:00</published><updated>2019-02-04T00:00:00+09:00</updated><id>http://localhost:4000/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/welcome-to-jekyll/">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
 
 &lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
 
@@ -126,9 +251,9 @@
 
 &lt;p&gt;When you run &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec jekyll serve&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;Bundler&lt;/code&gt; uses the gems and versions as specified in &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt; to ensure your Jekyll site builds with no compatibility or dependency conflicts.&lt;/p&gt;
 
-&lt;p&gt;For more information about how to use &lt;code class=&quot;highlighter-rouge&quot;&gt;Bundler&lt;/code&gt; in your Jekyll project, this tutorial should provide answers to the most common questions and explain how to get up and running quickly.&lt;/p&gt;</content><author><name>sal</name></author><summary type="html">gem install bundler installs the bundler gem through RubyGems. You only need to install it once - not every time you create a new Jekyll project. Here are some additional details:</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/2.jpg" /></entry><entry><title type="html">We all wait for summer</title><link href="http://localhost:4000/we-all-wait-for-summer/" rel="alternate" type="text/html" title="We all wait for summer" /><published>2019-01-28T00:00:00+09:00</published><updated>2019-01-28T00:00:00+09:00</updated><id>http://localhost:4000/we-all-wait-for-summer</id><content type="html" xml:base="http://localhost:4000/we-all-wait-for-summer/">&lt;p&gt;This is changed. As I engage in the so-called “bull sessions” around and about the school, I too often find that most college men have a misconception of the purpose of education. Most of the “brethren” think that &lt;a href=&quot;#&quot;&gt;education should equip&lt;/a&gt; them with the proper instruments of exploitation so that they can forever trample over the masses. Still others think that education should furnish them with noble ends rather than means to an end.&lt;/p&gt;
+&lt;p&gt;For more information about how to use &lt;code class=&quot;highlighter-rouge&quot;&gt;Bundler&lt;/code&gt; in your Jekyll project, this tutorial should provide answers to the most common questions and explain how to get up and running quickly.&lt;/p&gt;</content><author><name>sal</name></author><summary type="html">gem install bundler installs the bundler gem through RubyGems. You only need to install it once - not every time you create a new Jekyll project. Here are some additional details:</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/2.jpg" /></entry><entry><title type="html">[STEP BY STEP]Centos 7 설치하기</title><link href="http://localhost:4000/we-all-wait-for-summer/" rel="alternate" type="text/html" title="[STEP BY STEP]Centos 7 설치하기" /><published>2019-01-28T00:00:00+09:00</published><updated>2019-01-28T00:00:00+09:00</updated><id>http://localhost:4000/we-all-wait-for-summer</id><content type="html" xml:base="http://localhost:4000/we-all-wait-for-summer/">&lt;p&gt;This is changed. As I engage in the so-called “bull sessions” around and about the school, I too often find that most college men have a misconception of the purpose of education. Most of the “brethren” think that &lt;a href=&quot;#&quot;&gt;education should equip&lt;/a&gt; them with the proper instruments of exploitation so that they can forever trample over the masses. Still others think that education should furnish them with noble ends rather than means to an end.&lt;/p&gt;
 
-&lt;p&gt;It seems to me that education has a two-fold function to perform in the life of man and in society: the one is utility and the other is culture. Education must enable a man to become more efficient, to achieve with increasing facility the ligitimate goals of his life.&lt;/p&gt;</content><author><name>jane</name></author><category term="featured" /><summary type="html">This is changed. As I engage in the so-called “bull sessions” around and about the school, I too often find that most college men have a misconception of the purpose of education. Most of the “brethren” think that education should equip them with the proper instruments of exploitation so that they can forever trample over the masses. Still others think that education should furnish them with noble ends rather than means to an end.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/1.jpg" /></entry><entry><title type="html">Tree of Codes</title><link href="http://localhost:4000/tree-of-codes/" rel="alternate" type="text/html" title="Tree of Codes" /><published>2019-01-27T00:00:00+09:00</published><updated>2019-01-27T00:00:00+09:00</updated><id>http://localhost:4000/tree-of-codes</id><content type="html" xml:base="http://localhost:4000/tree-of-codes/">&lt;p&gt;The first mass-produced book to deviate from a rectilinear format, at least in the United States, is thought to be this 1863 edition of Red Riding Hood, cut into the shape of the protagonist herself with the troublesome wolf curled at her feet. Produced by the Boston-based publisher Louis Prang, this is the first in their “Doll Series”, a set of five “die-cut” books, known also as shape books — the other titles being Robinson Crusoe, Goody Two-Shoes (also written by Red Riding Hood author Lydia Very), Cinderella, and King Winter.&lt;/p&gt;
+&lt;p&gt;It seems to me that education has a two-fold function to perform in the life of man and in society: the one is utility and the other is culture. Education must enable a man to become more efficient, to achieve with increasing facility the ligitimate goals of his life.&lt;/p&gt;</content><author><name>jane</name></author><category term="centos7" /><summary type="html">This is changed. As I engage in the so-called “bull sessions” around and about the school, I too often find that most college men have a misconception of the purpose of education. Most of the “brethren” think that education should equip them with the proper instruments of exploitation so that they can forever trample over the masses. Still others think that education should furnish them with noble ends rather than means to an end.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/1.jpg" /></entry><entry><title type="html">Tree of Codes</title><link href="http://localhost:4000/tree-of-codes/" rel="alternate" type="text/html" title="Tree of Codes" /><published>2019-01-27T00:00:00+09:00</published><updated>2019-01-27T00:00:00+09:00</updated><id>http://localhost:4000/tree-of-codes</id><content type="html" xml:base="http://localhost:4000/tree-of-codes/">&lt;p&gt;The first mass-produced book to deviate from a rectilinear format, at least in the United States, is thought to be this 1863 edition of Red Riding Hood, cut into the shape of the protagonist herself with the troublesome wolf curled at her feet. Produced by the Boston-based publisher Louis Prang, this is the first in their “Doll Series”, a set of five “die-cut” books, known also as shape books — the other titles being Robinson Crusoe, Goody Two-Shoes (also written by Red Riding Hood author Lydia Very), Cinderella, and King Winter.&lt;/p&gt;
 
 &lt;p&gt;As for this particular rendition of Charles Perrault’s classic tale, the text and design is by Lydia Very (1823-1901), sister of Transcendentalist poet Jones Very. The gruesome ending of the original — which sees Little Red Riding Hood being gobbled up as well as her grandmother — is avoided here, the gore giving way to the less bloody aims of the morality tale, and the lesson that one should not disobey one’s mother.&lt;/p&gt;
 
@@ -148,16 +273,4 @@
 
 &lt;p&gt;The die cut has also been employed in the non-juvenile sphere as well, a recent example being Jonathan Safran Foer’s ambitious Tree of Codes.&lt;/p&gt;
 
-&lt;p&gt;As for this particular rendition of Charles Perrault’s classic tale, the text and design is by Lydia Very (1823-1901), sister of Transcendentalist poet Jones Very. The gruesome ending of the original — which sees Little Red Riding Hood being gobbled up as well as her grandmother — is avoided here, the gore giving way to the less bloody aims of the morality tale, and the lesson that one should not disobey one’s mother.&lt;/p&gt;</content><author><name>sal</name></author><summary type="html">The first mass-produced book to deviate from a rectilinear format, at least in the United States, is thought to be this 1863 edition of Red Riding Hood, cut into the shape of the protagonist herself with the troublesome wolf curled at her feet. Produced by the Boston-based publisher Louis Prang, this is the first in their “Doll Series”, a set of five “die-cut” books, known also as shape books — the other titles being Robinson Crusoe, Goody Two-Shoes (also written by Red Riding Hood author Lydia Very), Cinderella, and King Winter.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/3.jpg" /></entry><entry><title type="html">Press and education</title><link href="http://localhost:4000/press-and-education/" rel="alternate" type="text/html" title="Press and education" /><published>2019-01-25T00:00:00+09:00</published><updated>2019-01-25T00:00:00+09:00</updated><id>http://localhost:4000/press-and-education</id><content type="html" xml:base="http://localhost:4000/press-and-education/">&lt;p&gt;Even the press, the classroom, the platform, and the pulpit in many instances do not give us objective and unbiased truths. To save man from the morass of propaganda, in my opinion, is one of the chief aims of education. Education must enable one to sift and weigh evidence, to discern the true from the false, the real from the unreal, and the facts from the fiction.&lt;/p&gt;
-
-&lt;p&gt;Education must also train one for quick, &lt;strong&gt;resolute and effective thinking&lt;/strong&gt;. To think incisively and to think for one’s self is very difficult.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;We are prone to let our mental life become invaded by legions of half truths, prejudices, and propaganda. At this point, I often wonder whether or not education is fulfilling its purpose. A great majority of the so-called educated people do not think logically and scientifically.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;The function of education, therefore, is to teach one to think intensively and to think critically. But education which stops with efficiency may prove the greatest menace to society. The most dangerous criminal may be the man gifted with reason, but with no morals.&lt;/p&gt;
-
-&lt;p&gt;The late Eugene Talmadge, in my opinion, possessed one of the better minds of Georgia, or even America. Moreover, he wore the Phi Beta Kappa key. By all measuring rods, Mr. Talmadge could think critically and intensively; yet he contends that I am an inferior being. Are those the types of men we call educated?&lt;/p&gt;
-
-&lt;p&gt;We must remember that intelligence is not enough. Intelligence plus character–that is the goal of true education. The complete education gives one not only power of concentration, but worthy objectives upon which to concentrate. The broad education will, therefore, transmit to one not only the accumulated knowledge of the race but also the accumulated experience of social living.&lt;/p&gt;</content><author><name>sal</name></author><summary type="html">Even the press, the classroom, the platform, and the pulpit in many instances do not give us objective and unbiased truths. To save man from the morass of propaganda, in my opinion, is one of the chief aims of education. Education must enable one to sift and weigh evidence, to discern the true from the false, the real from the unreal, and the facts from the fiction.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/7.jpg" /></entry></feed>
+&lt;p&gt;As for this particular rendition of Charles Perrault’s classic tale, the text and design is by Lydia Very (1823-1901), sister of Transcendentalist poet Jones Very. The gruesome ending of the original — which sees Little Red Riding Hood being gobbled up as well as her grandmother — is avoided here, the gore giving way to the less bloody aims of the morality tale, and the lesson that one should not disobey one’s mother.&lt;/p&gt;</content><author><name>sal</name></author><summary type="html">The first mass-produced book to deviate from a rectilinear format, at least in the United States, is thought to be this 1863 edition of Red Riding Hood, cut into the shape of the protagonist herself with the troublesome wolf curled at her feet. Produced by the Boston-based publisher Louis Prang, this is the first in their “Doll Series”, a set of five “die-cut” books, known also as shape books — the other titles being Robinson Crusoe, Goody Two-Shoes (also written by Red Riding Hood author Lydia Very), Cinderella, and King Winter.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/3.jpg" /></entry></feed>
