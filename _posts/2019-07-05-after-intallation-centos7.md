@@ -1,10 +1,8 @@
 ---
 layout: post
 title:  "Centos 7 설치후 기본설정"
-author: jane
 categories: [ tutorial, 리눅스 ]
-image: assets/images/1.jpg
-tags: [centos7, yum, selinux, firewalld]
+tags: [centos7, yum, selinux, firewalld, featured]
 ---
 
 지난 시간에는 CentOS 7을 설치하는 과정을 알아 보았습니다. 이번 시간에는 앞서 설치된 CentOS7를 개발환경에서 사용하기 위해 필요한 설정 작업을 알아보도록 하겠습니다.

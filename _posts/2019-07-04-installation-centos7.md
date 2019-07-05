@@ -1,10 +1,9 @@
 ---
 layout: post
 title:  "[STEP BY STEP]Centos 7 설치하기"
-author: jane
 categories: [ tutorial, 리눅스 ]
-image: assets/images/1.jpg
-tags: [centos7]
+image: assets/post_images/20190704/install-centos-7-logo.png
+tags: [centos7, sticky, featured]
 ---
 
 사실 리눅스를 설치할 일은 그다지 많지 않은것이 현실입니다. 물론 시스템 관리자 입장에서는 자주 있을 수 있는 일지만, 개발자들은 그렇지 않은 경우가 많죠. 하지만, 막상 필요에 의해 설치하는 경우에는 생각이 나지 않아 그때 그때 구글링에 의존해야 하는 경우도 존재 합니다. 그래서, CentOS7 을 설치하는 전 과정을 Step By Step 형식으로 정리해 보았습니다. 

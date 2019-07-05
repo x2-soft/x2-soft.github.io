@@ -15,14 +15,14 @@ layout: default
                         </span>
 					</p>
 					<h1 class="display-4 mb-4 article-headline">{{ page.title }}</h1>
-					<div class="d-flex align-items-center">
+					<!-- <div class="d-flex align-items-center">
                         {% if author.avatar %}
                         <img class="rounded-circle" src="{{site.baseurl}}/{{author.avatar}}" alt="{{author.name}}" width="70"/>
                         {% endif %}
 						<small class="ml-3"> {{ author.name }} <span><a target="_blank" href="{{ author.twitter }}" class="btn btn-outline-success btn-sm btn-round ml-1">Follow</a></span>
                             <span class="text-muted d-block mt-1">{{ page.date | date: '%b %d, %Y' }} · {% include meta-read-time.html %}</span>
 						</small>
-					</div>
+					</div> -->
 				</div>
                 {% if page.image %}
 				<div class="col-md-6 pr-0 align-self-center">
@@ -79,7 +79,7 @@ layout: default
 			</div>
  
             <!-- Mailchimp Subscribe Form -->
-            {% if site.mailchimp-list %}
+            <!-- {% if site.mailchimp-list %}
 			<div class="border p-5 bg-lightblue">
 				<div class="row justify-content-between">
 					<div class="col-md-6 mb-2 mb-md-0">
@@ -102,11 +102,11 @@ layout: default
 					</div>
 				</div>
 			</div>
-            {% endif %}
+            {% endif %} -->
             
             
              <!-- Author Box -->
-                {% if page.author %}				
+                <!-- {% if page.author %}				
 				<div class="row mt-5">
 					<div class="col-md-2 align-self-center">
                          {% if author.avatar %}
@@ -118,7 +118,7 @@ layout: default
 						{{ author.bio }}					
 					</div>
 				</div>				
-                {% endif %}
+                {% endif %} -->
             
             <!-- Comments -->
             {% if page.comments != false %}

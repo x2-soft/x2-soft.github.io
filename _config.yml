@@ -20,11 +20,11 @@ plugins:
   - jekyll-seo-tag
   
 authors:
-    cocomo:
-      name:           Coco
-      site:           https://www.wowthemes.net
-      avatar:         assets/images/avatar1.jpg
-      bio:            "Hi, I am Sal, the author of Mundana, the theme you're currently previewing. I hope you like it!"
+    x2soft:
+      name:           X2Soft
+      site:           https://www.x2soft.co.kr
+      avatar:         assets/images/x2soft-avatar.jpg
+      bio:            "e-Commerce 전문 기업"
       email:          wowthemesnet@gmail.com
       twitter:        https://twitter.com/wowthemesnet
 
