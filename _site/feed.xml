@@ -1,4 +1,125 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-05T10:06:43+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">X2Soft</title><subtitle>X2soft 기술 블로그입니다.</subtitle><entry><title type="html">Centos 7 설치후 기본설정</title><link href="http://localhost:4000/after-intallation-centos7/" rel="alternate" type="text/html" title="Centos 7 설치후 기본설정" /><published>2019-07-05T00:00:00+09:00</published><updated>2019-07-05T00:00:00+09:00</updated><id>http://localhost:4000/after-intallation-centos7</id><content type="html" xml:base="http://localhost:4000/after-intallation-centos7/">&lt;p&gt;지난 시간에는 CentOS 7을 설치하는 과정을 알아 보았습니다. 이번 시간에는 앞서 설치된 CentOS7를 개발환경에서 사용하기 위해 필요한 설정 작업을 알아보도록 하겠습니다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-08T08:48:09+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">X2Soft</title><subtitle>X2soft 기술 블로그입니다.</subtitle><entry><title type="html">Centos7 에서 mysql8.x 설치하기</title><link href="http://localhost:4000/installtion-mysql8/" rel="alternate" type="text/html" title="Centos7 에서 mysql8.x 설치하기" /><published>2019-07-08T00:00:00+09:00</published><updated>2019-07-08T00:00:00+09:00</updated><id>http://localhost:4000/installtion-mysql8</id><content type="html" xml:base="http://localhost:4000/installtion-mysql8/">&lt;p&gt;개발환경에서 mysql8은 도커기반에서의 설치가 가장 간편합니다. 이번 시간에는 Centos7에서 mysql8.x 를 설치하는 방법을 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;기회가 된다면 도커기반으로 mysql8.x 를 설치하는 방법도 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;1-yum-repository-추가-및-설치&quot;&gt;1. yum Repository 추가 및 설치&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# rpm -Uvh https://repo.mysql.com/mysql57-community-release-el7-11.noarch.rpm&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# yum --enablerepo=mysql80-community install -y mysql-community-server&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;2-mysql-설정&quot;&gt;2. mysql 설정&lt;/h2&gt;
+
+&lt;h3 id=&quot;2-1-data-디렉토리-생성&quot;&gt;2-1. data 디렉토리 생성&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# mkdir -p /data/mysql&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# chown mysql:mysql /data/mysql&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;2-2-mycnf-수정&quot;&gt;2-2. my.cnf 수정&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# vi /etc/my.cnf&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[client]
+socket=/data/mysql/mysql.sock
+
+## data 디렉토리 변경
+datadir=/data/mysql
+socket=/data/mysql/mysql.sock
+## [mysqld] sectionc에 아래 내용 추가
+user = mysql
+port = 3306
+innodb_dedicated_server=ON
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;3-mysql-구동&quot;&gt;3. mysql 구동&lt;/h2&gt;
+
+&lt;h3 id=&quot;3-1-mysql-실행중지재시작&quot;&gt;3-1. mysql 실행/중지/재시작&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# systemctl start[stop|restart] mysql&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-2-시스템-부팅시-자동-실행&quot;&gt;3-2. 시스템 부팅시 자동 실행&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# systemctl enable mysqld&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-3-초기-임시-비밀번호-확인&quot;&gt;3-3. 초기 임시 비밀번호 확인&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /var/log/mysqld.log | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'temporary password'&lt;/span&gt;
+2019-07-02T04:23:44.741210Z 5 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Note] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;MY-010454] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Server] A temporary password is generated &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;root@localhost: :XKcwd&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;pv8se
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-4-비밀번호-변경&quot;&gt;3-4. 비밀번호 변경&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# mysql_secure_installation&lt;/span&gt;
+Securing the MySQL server deployment.
+
+Enter password &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;user root: :XKcwd&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;pv8se &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;위에서 확인한 임시 비번&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+New password: 새 비밀번호 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;root&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+Re-enter new password: 비밀번호 확인
+
+Estimated strength of the password: 100 
+
+Do you wish to &lt;span class=&quot;k&quot;&gt;continue &lt;/span&gt;with the password provided?&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y    &lt;span class=&quot;c&quot;&gt;## 변경 된 비밀번호를 계속 사용하시겠습니까?&lt;/span&gt;
+
+Remove anonymous &lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt;? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y  &lt;span class=&quot;c&quot;&gt;## 익명사용자를 삭제 할까요?&lt;/span&gt;
+
+Success.
+
+Disallow root login remotely? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y  &lt;span class=&quot;c&quot;&gt;##원격 root 로그인 차단?&lt;/span&gt;
+
+Success.
+
+Remove &lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;database and access to it? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y  &lt;span class=&quot;c&quot;&gt;## 테스트 데이터베이스 삭제?&lt;/span&gt;
+
+ - Dropping &lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;database...
+
+Success.
+
+Reload privilege tables now? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y  &lt;span class=&quot;c&quot;&gt;##관리자 권한 테이블 다시 로드할까요?&lt;/span&gt;
+
+Success.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-5-mysql-접속&quot;&gt;3-5. mysql 접속&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# mysql -uroot -p&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-6-mysql-패스워드-정책-설정&quot;&gt;3-6. mysql 패스워드 정책 설정&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mysql&amp;gt; show variables like &lt;span class=&quot;s1&quot;&gt;'validate_password%'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
++--------------------------------------+-------+
+| Variable_name                        | Value |
++--------------------------------------+-------+
+| validate_password.check_user_name    | ON    |
+| validate_password.dictionary_file    |       |
+| validate_password.length             | 8     |
+| validate_password.mixed_case_count   | 1     |
+| validate_password.number_count       | 1     |
+| validate_password.policy             | LOW   |
+| validate_password.special_char_count | 1     |
++--------------------------------------+-------+
+7 rows &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0.00 sec&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## 패스워드 policy를 변경하고자 하면 아래와 같이 설정 함. &lt;/span&gt;
+mysql&amp;gt; SET GLOBAL validate_password.policy&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;LOW&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## 위와 같이 설정하면 mysql 재시작 될 때 다시 기본 정책으로 변경 됨으로 my.cnf 에 아래와 같이 추가 하면 재시작시에도 설정값으로 시작됨. &lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@x2 ~]# vi /etc/my.cnf
+&lt;span class=&quot;nv&quot;&gt;validate_password_policy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;LOW            &lt;span class=&quot;c&quot;&gt;## 추가&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## mysql DB, 계정 추가&lt;/span&gt;
+mysql&amp;gt; ALTER USER &lt;span class=&quot;s2&quot;&gt;&quot;root&quot;&lt;/span&gt;@&lt;span class=&quot;s2&quot;&gt;&quot;localhost&quot;&lt;/span&gt; IDENTIFIED BY &lt;span class=&quot;s2&quot;&gt;&quot;examples!@#$&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;root&quot;&lt;/span&gt;@&lt;span class=&quot;s2&quot;&gt;&quot;localhost&quot;&lt;/span&gt; PASSWORD EXPIRE NEVER&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+mysql&amp;gt; CREATE DATABASE project DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+mysql&amp;gt; CREATE USER &lt;span class=&quot;s2&quot;&gt;&quot;test_project&quot;&lt;/span&gt;@&lt;span class=&quot;s2&quot;&gt;&quot;%&quot;&lt;/span&gt; IDENTIFIED WITH mysql_native_password BY &lt;span class=&quot;s2&quot;&gt;&quot;examples!@#$&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+mysql&amp;gt; GRANT ALL ON project.&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; TO &lt;span class=&quot;s2&quot;&gt;&quot;test_project&quot;&lt;/span&gt;@&lt;span class=&quot;s2&quot;&gt;&quot;%&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+mysql&amp;gt; FLUSH PRIVILEGES&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>sal</name></author><category term="centos7" /><category term="mysql8" /><summary type="html">개발환경에서 mysql8은 도커기반에서의 설치가 가장 간편합니다. 이번 시간에는 Centos7에서 mysql8.x 를 설치하는 방법을 알아보도록 하겠습니다.</summary></entry><entry><title type="html">Centos 7 설치후 기본설정</title><link href="http://localhost:4000/after-intallation-centos7/" rel="alternate" type="text/html" title="Centos 7 설치후 기본설정" /><published>2019-07-05T00:00:00+09:00</published><updated>2019-07-05T00:00:00+09:00</updated><id>http://localhost:4000/after-intallation-centos7</id><content type="html" xml:base="http://localhost:4000/after-intallation-centos7/">&lt;p&gt;지난 시간에는 CentOS 7을 설치하는 과정을 알아 보았습니다. 이번 시간에는 앞서 설치된 CentOS7를 개발환경에서 사용하기 위해 필요한 설정 작업을 알아보도록 하겠습니다.&lt;/p&gt;
 
 &lt;p&gt;보안과 관련된 selinux와 firewalld 는 참고 정도로만 봐주셨으면 합니다.&lt;/p&gt;
 
