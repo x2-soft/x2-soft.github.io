@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "[STEP BY STEP]Centos 7 설치하기"
+date: 2019-07-04 19:51:02 +0900 
 author: x2soft
 categories: [ tutorial, 리눅스 ]
 tags: [centos7]
