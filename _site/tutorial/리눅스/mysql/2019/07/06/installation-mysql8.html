@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" />
+    <title>Centos7 에서 mysql8.x 설치하기 - x2soft 기술 블로그</title>
+    <meta name="author" content="x2soft" />
+    <meta name="description" content="Centos7 에서 mysql8.x 설치하기" />
+    <meta name="keywords" content="Centos7 에서 mysql8.x 설치하기, x2soft 기술 블로그, tutorial, 리눅스, mysql" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+    <meta content="1749788565247320" property="fb:app_id">
+    <meta content="x2soft 기술 블로그" property="og:site_name">
+
+    
+
+    
+      <meta content="Centos7 에서 mysql8.x 설치하기" property="og:title">
+      <meta content="article" property="og:type">
+    
+
+    
+      <meta content="Tech Blog" property="og:description">
+    
+
+    
+      <meta content="http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/mysql/2019/07/06/installation-mysql8.html" property="og:url">
+    
+
+    
+      <meta content="2019-07-06T00:00:00+09:00" property="article:published_time">
+      <meta content="http://localhost:4000/about/" property="article:author">
+    
+
+    
+      <meta content="http://localhost:4000/static/x2soft.png" property="og:image">
+    
+
+    
+      
+        <meta content="tutorial" property="article:section">
+      
+    
+
+    
+      
+        <meta content="centos7" property="article:tag">
+      
+        <meta content="mysql8" property="article:tag">
+      
+    
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@github.io">
+    <meta name="twitter:creator" content="@github.io">
+
+    
+      <meta name="twitter:title" content="Centos7 에서 mysql8.x 설치하기">
+    
+
+    
+      <meta name="twitter:url" content="http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/mysql/2019/07/06/installation-mysql8.html">
+    
+
+    
+      <meta name="twitter:description" content="Tech Blog">
+    
+
+    
+
+    <!-- Font awesome icons -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <!-- syntax highlighting CSS -->
+    <link rel="stylesheet" href="/static/css/syntax.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="/static/css/fonts.css" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/super-search.css">
+    <link rel="stylesheet" href="/static/css/thickbox.css">
+    <link rel="stylesheet" href="/static/css/projects.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-sm-3">
+        <div class="fixed-condition">
+          <a href="/"><img class="profile-avatar" src="/static/x2soft.png" /></a>
+          <h1 class="author-name">x2soft</h1>
+          
+            <div class="profile-about">
+              x2soft 기술 블로그에 오신걸 환영합니다.
+            </div>
+          
+          <!-- <div class="social">
+            <ul>
+              
+                <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+              
+                <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+              
+                <li><a href="#" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+              
+                <li><a href="#" target="_blank"><i class="fa fa-stack-exchange"></i></a></li>
+              
+                <li><a href="https://github.com/agusmakmun" target="_blank"><i class="fa fa-github"></i></a></li>
+              
+            </ul>
+          </div> -->
+          <div class="search" id="js-search">
+            <input type="text" placeholder="(sitemap)~$ type to search" class="search__input form-control" id="js-search__input">
+            <ul class="search__results" id="js-search__results"></ul>
+          </div>
+          <hr />
+          <!-- <ul class="sidebar-nav">
+            <strong>Navigation</strong>
+            <li><a href="/">Home</a></li>
+            
+              <li><a class="about" href="/about/">About Me</a></li>
+            
+              <li><a class="about" href="/projects/">My Projects</a></li>
+            
+              <li><a class="about" href="/feed.xml">XML Feed</a></li>
+            
+          </ul> -->
+        </div>
+        <!-- end /.fixed-condition -->
+      </div>
+      <div class="col-sm-8 col-offset-1 main-layout">
+        <header class="post-header">
+  <h1 class="post-title">Centos7 에서 mysql8.x 설치하기</h1>
+</header>
+
+<span class="time">06 Jul 2019</span>
+
+  <span class="categories">
+    &raquo; <a href="/category/tutorial">tutorial</a>, <a href="/category/리눅스">리눅스</a>, <a href="/category/mysql">mysql</a>
+  </span>
+
+
+<div class="content">
+  <div class="post"><p>개발환경에서 mysql8은 도커기반에서의 설치가 가장 간편합니다. 이번 시간에는 Centos7에서 mysql8.x 를 설치하는 방법을 알아보도록 하겠습니다.</p>
+
+<p>기회가 된다면 도커기반으로 mysql8.x 를 설치하는 방법도 알아보도록 하겠습니다.</p>
+
+<h2 id="1-yum-repository-추가-및-설치">1. yum Repository 추가 및 설치</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># rpm -Uvh https://repo.mysql.com/mysql57-community-release-el7-11.noarch.rpm</span>
+<span class="c"># yum --enablerepo=mysql80-community install -y mysql-community-server</span>
+</code></pre></div></div>
+
+<h2 id="2-mysql-설정">2. mysql 설정</h2>
+
+<h3 id="2-1-data-디렉토리-생성">2-1. data 디렉토리 생성</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># mkdir -p /data/mysql</span>
+<span class="c"># chown mysql:mysql /data/mysql</span>
+</code></pre></div></div>
+
+<h3 id="2-2-mycnf-수정">2-2. my.cnf 수정</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># vi /etc/my.cnf</span>
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[client]
+socket=/data/mysql/mysql.sock
+
+## data 디렉토리 변경
+datadir=/data/mysql
+socket=/data/mysql/mysql.sock
+## [mysqld] sectionc에 아래 내용 추가
+user = mysql
+port = 3306
+innodb_dedicated_server=ON
+</code></pre></div></div>
+
+<h2 id="3-mysql-구동">3. mysql 구동</h2>
+
+<h3 id="3-1-mysql-실행중지재시작">3-1. mysql 실행/중지/재시작</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># systemctl start[stop|restart] mysql</span>
+</code></pre></div></div>
+
+<h3 id="3-2-시스템-부팅시-자동-실행">3-2. 시스템 부팅시 자동 실행</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># systemctl enable mysqld</span>
+</code></pre></div></div>
+
+<h3 id="3-3-초기-임시-비밀번호-확인">3-3. 초기 임시 비밀번호 확인</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># cat /var/log/mysqld.log | grep -i 'temporary password'</span>
+2019-07-02T04:23:44.741210Z 5 <span class="o">[</span>Note] <span class="o">[</span>MY-010454] <span class="o">[</span>Server] A temporary password is generated <span class="k">for </span>root@localhost: :XKcwd<span class="k">*</span>pv8se
+</code></pre></div></div>
+
+<h3 id="3-4-비밀번호-변경">3-4. 비밀번호 변경</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># mysql_secure_installation</span>
+Securing the MySQL server deployment.
+
+Enter password <span class="k">for </span>user root: :XKcwd<span class="k">*</span>pv8se <span class="o">(</span>위에서 확인한 임시 비번<span class="o">)</span>
+
+New password: 새 비밀번호 <span class="o">(</span>root<span class="o">)</span>
+
+Re-enter new password: 비밀번호 확인
+
+Estimated strength of the password: 100 
+
+Do you wish to <span class="k">continue </span>with the password provided?<span class="o">(</span>Press y|Y <span class="k">for </span>Yes, any other key <span class="k">for </span>No<span class="o">)</span> : y    <span class="c">## 변경 된 비밀번호를 계속 사용하시겠습니까?</span>
+
+Remove anonymous users? <span class="o">(</span>Press y|Y <span class="k">for </span>Yes, any other key <span class="k">for </span>No<span class="o">)</span> : y  <span class="c">## 익명사용자를 삭제 할까요?</span>
+
+Success.
+
+Disallow root login remotely? <span class="o">(</span>Press y|Y <span class="k">for </span>Yes, any other key <span class="k">for </span>No<span class="o">)</span> : y  <span class="c">##원격 root 로그인 차단?</span>
+
+Success.
+
+Remove <span class="nb">test </span>database and access to it? <span class="o">(</span>Press y|Y <span class="k">for </span>Yes, any other key <span class="k">for </span>No<span class="o">)</span> : y  <span class="c">## 테스트 데이터베이스 삭제?</span>
+
+ - Dropping <span class="nb">test </span>database...
+
+Success.
+
+Reload privilege tables now? <span class="o">(</span>Press y|Y <span class="k">for </span>Yes, any other key <span class="k">for </span>No<span class="o">)</span> : y  <span class="c">##관리자 권한 테이블 다시 로드할까요?</span>
+
+Success.
+</code></pre></div></div>
+
+<h3 id="3-5-mysql-접속">3-5. mysql 접속</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># mysql -uroot -p</span>
+</code></pre></div></div>
+
+<h3 id="3-6-mysql-패스워드-정책-설정">3-6. mysql 패스워드 정책 설정</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; show variables like <span class="s1">'validate_password%'</span><span class="p">;</span>
++--------------------------------------+-------+
+| Variable_name                        | Value |
++--------------------------------------+-------+
+| validate_password.check_user_name    | ON    |
+| validate_password.dictionary_file    |       |
+| validate_password.length             | 8     |
+| validate_password.mixed_case_count   | 1     |
+| validate_password.number_count       | 1     |
+| validate_password.policy             | LOW   |
+| validate_password.special_char_count | 1     |
++--------------------------------------+-------+
+7 rows <span class="k">in </span><span class="nb">set</span> <span class="o">(</span>0.00 sec<span class="o">)</span>
+
+<span class="c">## 패스워드 policy를 변경하고자 하면 아래와 같이 설정 함. </span>
+mysql&gt; SET GLOBAL validate_password.policy<span class="o">=</span>LOW<span class="p">;</span>
+
+<span class="c">## 위와 같이 설정하면 mysql 재시작 될 때 다시 기본 정책으로 변경 됨으로 my.cnf 에 아래와 같이 추가 하면 재시작시에도 설정값으로 시작됨. </span>
+<span class="o">[</span>root@x2 ~]# vi /etc/my.cnf
+<span class="nv">validate_password_policy</span><span class="o">=</span>LOW            <span class="c">## 추가</span>
+
+<span class="c">## mysql DB, 계정 추가</span>
+mysql&gt; ALTER USER <span class="s2">"root"</span>@<span class="s2">"localhost"</span> IDENTIFIED BY <span class="s2">"examples!@#$"</span>, <span class="s2">"root"</span>@<span class="s2">"localhost"</span> PASSWORD EXPIRE NEVER<span class="p">;</span>
+mysql&gt; CREATE DATABASE project DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci<span class="p">;</span>
+mysql&gt; CREATE USER <span class="s2">"test_project"</span>@<span class="s2">"%"</span> IDENTIFIED WITH mysql_native_password BY <span class="s2">"examples!@#$"</span><span class="p">;</span>
+mysql&gt; GRANT ALL ON project.<span class="k">*</span> TO <span class="s2">"test_project"</span>@<span class="s2">"%"</span><span class="p">;</span>
+mysql&gt; FLUSH PRIVILEGES<span class="p">;</span>
+</code></pre></div></div>
+</div>
+  <div class="share-page">
+  <span style="float: left;">Share this on &rarr;&nbsp;&nbsp;</span>
+
+  <!-- Twitter -->
+  <a href="https://twitter.com/share" class="twitter-share-button" data-via="github.io">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  <!-- Facebook -->
+  <div class="fb-share-button" data-href="http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/mysql/2019/07/06/installation-mysql8.html" data-layout="button_count" style="position: relative; top: -8px; left: 3px;"></div>
+</div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=1749788565247320";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+</div>
+
+
+  
+    
+      
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+            <div class="panel-body">
+              <h4>Related Posts</h4>
+              <ul>
+            
+                <li class="relatedPost">
+                  <a href="http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/05/after-intallation-centos7.html">Centos 7 설치후 기본설정</a>
+                  
+                    (Categories: <a href="/category/tutorial">tutorial</a>, <a href="/category/리눅스">리눅스</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+    
+      
+        
+          
+            
+                <li class="relatedPost">
+                  <a href="http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/04/installation-centos7.html">[STEP BY STEP]Centos 7 설치하기</a>
+                  
+                    (Categories: <a href="/category/tutorial">tutorial</a>, <a href="/category/리눅스">리눅스</a>)
+                  
+                </li>
+          
+          
+        
+      
+          
+      
+          
+      
+    
+        
+          
+      
+          
+      
+          
+      
+    
+  
+  
+  </ul>
+</div>
+
+
+<div class="PageNavigation">
+  
+    <a class="prev" href="/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/05/after-intallation-centos7.html">&laquo; Centos 7 설치후 기본설정</a>
+  
+  
+</div>
+
+<div class="disqus-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    /* <![CDATA[ */
+    var disqus_shortname = "";
+    var disqus_identifier = "http://localhost:4000_Centos7 에서 mysql8.x 설치하기";
+    var disqus_title = "Centos7 에서 mysql8.x 설치하기";
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    /* ]]> */
+  </script>
+</div>
+
+        <footer>
+          &copy; x2soft
+          
+            - <a href="https://x2-soft.github.io">https://x2-soft.github.io</a> - Powered by Jekyll.
+          
+          <!-- <div class="btn-github" style="float:right;">
+            <iframe src="https://ghbtns.com/github-btn.html?user=agusmakmun&repo=agusmakmun.github.io&type=star&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>
+            <iframe src="https://ghbtns.com/github-btn.html?user=agusmakmun&repo=agusmakmun.github.io&type=fork&count=true" frameborder="0" scrolling="0" width="85" height="20px"></iframe>
+          </div> -->
+        </footer>
+      </div>
+      <!-- end /.col-sm-8 -->
+    </div>
+    <!-- end /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery-1.11.0.min.js"></script>
+    <script src="/static/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/super-search.js"></script>
+    <script src="/static/js/thickbox-compressed.js"></script>
+    <script src="/static/js/projects.js"></script>
+  </body>
+</html>
+

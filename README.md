@@ -1,69 +1,72 @@
-# Installation ruby
+## My Stack Problems
 
-[맥 OS rbenv 설치](https://rorlab.gitbooks.io/railsguidebook/content/contents/rbenv.html)
+> This project forked and has been modified from [A simple grey theme for Jekyll](https://github.com/liamsymonds/simplygrey-jekyll),
+> and the search posts using [Super Search](https://github.com/chinchang/super-search)
 
-# Jekyll Installation
+### Demo
+* [https://agusmakmun.github.io](https://agusmakmun.github.io)
 
-[rbenv환경에서 Jekyll 블로그 생성하고 GitHub Pages에 배포하기](https://lhy.kr/create-jekyll-blog-using-rbenv-and-github-pages)
+#### Features
 
-`
-gem install jekyll bundler github-pages
-`
+* Sitemap and XML Feed
+* Pagination in homepage
+* Posts under category
+* Realtime Search Posts _(title & description)_ by query.
+* Related Posts
+* Highlight pre
+* Next & Previous Post
+* Disqus comment
+* Projects page & Detail Project page
+* Share on social media
+* Google analytics
+* HTML Minify _(Compress HTML)_ using [Jekyll Compress HTML](https://github.com/penibelst/jekyll-compress-html)
 
-# Jekyll run server
+#### Screenshot
 
-1. Local 개발환경
+![Screenshot Post Page](https://raw.githubusercontent.com/agusmakmun/agusmakmun.github.io/master/static/img/screenshot-post-page.png  "Screenshot Post Page")
 
-    ` bundle exec jekyll serve --watch --config _config.yml `
+### Install & Configuration
 
-# Jekyll Theme - Mundana by WowThemes.net
+1. Fork this repository
+2. Edit site settings inside file of `_config.yml`
+3. Edit your projects at file of `projects.md`, `_data/projects.json` and inside path of `_project/` _(for detail project)_.
+4. Edit about yourself inside file of `about.md`
 
-[Live Demo](https://wowthemesnet.github.io/mundana-theme-jekyll/) &nbsp; | &nbsp; 
-[Download](https://github.com/wowthemesnet/mundana-theme-jekyll/archive/master.zip) &nbsp; | &nbsp; 
-[Buy me a coffe](https://www.wowthemes.net/donate/) &nbsp; | &nbsp; [Documentation](https://bootstrapstarter.com/bootstrap-templates/mundana-theme-jekyll/) &nbsp; | &nbsp; 
-[WordPress version](https://www.wowthemes.net/themes/mundana-wordpress/) 
+### How to Use?
 
-![mundana jekyll theme screenshot](assets/images/screenshot.jpg)
+**a. Add new Category**
 
-### Documentation
+All categories saved inside path of `category/`, you can see the existed categories.
 
-[How to install & use](https://bootstrapstarter.com/bootstrap-templates/mundana-theme-jekyll/)
+**b. Add new Posts**
 
-### Contribute to Mundana repository
+* All posts bassed on markdown syntax _(please googling)_. allowed extensions is `*.markdown` or `*.md`.
+* This files can found at the path of `_posts/`.
+* and the name of files are following `<date:%Y-%m-%d>-<slug>.<extension>`, for example:
 
-1. In the top-right corner of this page, click **Fork**.
+```
+2013-09-23-welcome-to-jekyll.md
 
-2. Clone a copy of your fork on your local, replacing *YOUR-USERNAME* with your Github username.
+# or
 
-   `git clone https://github.com/YOUR-USERNAME/mundana-theme-jekyll.git`
+2013-09-23-welcome-to-jekyll.markdown
+```
 
-3. **Create a branch**: 
+Inside the file of it,
 
-   `git checkout -b <my-new-feature-or-fix>`
+```
+---
+layout: post                          # (require) default post layout
+title: "Your Title"                   # (require) a string title
+date: 2016-04-20 19:51:02 +0700       # (require) a post date
+categories: [python, django]          # (custom) some categories, but makesure these categories already exists inside path of `category/`
+tags: [foo, bar]                      # (custom) tags only for meta `property="article:tag"`
+image: Broadcast_Mail.png             # (custom) image only for meta `property="og:image"`, save your image inside path of `static/img/_posts`
+---
 
-4. **Make necessary changes and commit those changes**:
+# your content post with markdown syntax goes here...
+```
 
-   `git add .`
+### Contributing
 
-   `git commit -m "new feature or fix"`
-
-5. **Push changes**, replacing `<add-your-branch-name>` with the name of the branch you created earlier at step #3. :
-
-   `git push origin <add-your-branch-name>`
-
-6. Submit your changes for review. Go to your repository on GitHub, you'll see a **Compare & pull request** button. Click on that button. Now submit the pull request.
-
-That's it! Soon I'll be merging your changes into the master branch of this project. You will get a notification email once the changes have been merged. Thank you for your contribution.
-
-
-### Copyright
-
-Copyright (C) 2019 WowThemes.net.
-
-Theme designed and developed by [Sal](https://www.wowthemes.net), *free* under MIT license. 
-
-<a href="https://www.wowthemes.net/donate/" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
-
-### Live Demo
-
-[Live Demo](https://wowthemesnet.github.io/mundana-theme-jekyll/)
+Feel free to [open a bug](https://github.com/agusmakmun/agusmakmun.github.io/issues) or [contribute to code](https://github.com/agusmakmun/agusmakmun.github.io/pulls)!

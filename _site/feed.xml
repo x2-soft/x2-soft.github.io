@@ -1,4 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-08T08:48:09+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">X2Soft</title><subtitle>X2soft 기술 블로그입니다.</subtitle><entry><title type="html">Centos7 에서 mysql8.x 설치하기</title><link href="http://localhost:4000/installtion-mysql8/" rel="alternate" type="text/html" title="Centos7 에서 mysql8.x 설치하기" /><published>2019-07-08T00:00:00+09:00</published><updated>2019-07-08T00:00:00+09:00</updated><id>http://localhost:4000/installtion-mysql8</id><content type="html" xml:base="http://localhost:4000/installtion-mysql8/">&lt;p&gt;개발환경에서 mysql8은 도커기반에서의 설치가 가장 간편합니다. 이번 시간에는 Centos7에서 mysql8.x 를 설치하는 방법을 알아보도록 하겠습니다.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>x2soft 기술 블로그</title>
+    <description>Tech Blog</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 08 Jul 2019 13:30:57 +0900</pubDate>
+    <lastBuildDate>Mon, 08 Jul 2019 13:30:57 +0900</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Centos7 에서 mysql8.x 설치하기</title>
+        <description>&lt;p&gt;개발환경에서 mysql8은 도커기반에서의 설치가 가장 간편합니다. 이번 시간에는 Centos7에서 mysql8.x 를 설치하는 방법을 알아보도록 하겠습니다.&lt;/p&gt;
 
 &lt;p&gt;기회가 된다면 도커기반으로 mysql8.x 를 설치하는 방법도 알아보도록 하겠습니다.&lt;/p&gt;
 
@@ -47,7 +60,7 @@ innodb_dedicated_server=ON
 
 &lt;h3 id=&quot;3-3-초기-임시-비밀번호-확인&quot;&gt;3-3. 초기 임시 비밀번호 확인&lt;/h3&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; /var/log/mysqld.log | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'temporary password'&lt;/span&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# cat /var/log/mysqld.log | grep -i 'temporary password'&lt;/span&gt;
 2019-07-02T04:23:44.741210Z 5 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Note] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;MY-010454] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Server] A temporary password is generated &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;root@localhost: :XKcwd&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;pv8se
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -66,7 +79,7 @@ Estimated strength of the password: 100
 
 Do you wish to &lt;span class=&quot;k&quot;&gt;continue &lt;/span&gt;with the password provided?&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y    &lt;span class=&quot;c&quot;&gt;## 변경 된 비밀번호를 계속 사용하시겠습니까?&lt;/span&gt;
 
-Remove anonymous &lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt;? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y  &lt;span class=&quot;c&quot;&gt;## 익명사용자를 삭제 할까요?&lt;/span&gt;
+Remove anonymous users? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y  &lt;span class=&quot;c&quot;&gt;## 익명사용자를 삭제 할까요?&lt;/span&gt;
 
 Success.
 
@@ -119,7 +132,28 @@ mysql&amp;gt; CREATE DATABASE project DEFAULT CHARACTER SET utf8mb4 COLLATE utf8
 mysql&amp;gt; CREATE USER &lt;span class=&quot;s2&quot;&gt;&quot;test_project&quot;&lt;/span&gt;@&lt;span class=&quot;s2&quot;&gt;&quot;%&quot;&lt;/span&gt; IDENTIFIED WITH mysql_native_password BY &lt;span class=&quot;s2&quot;&gt;&quot;examples!@#$&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 mysql&amp;gt; GRANT ALL ON project.&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; TO &lt;span class=&quot;s2&quot;&gt;&quot;test_project&quot;&lt;/span&gt;@&lt;span class=&quot;s2&quot;&gt;&quot;%&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 mysql&amp;gt; FLUSH PRIVILEGES&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>sal</name></author><category term="centos7" /><category term="mysql8" /><summary type="html">개발환경에서 mysql8은 도커기반에서의 설치가 가장 간편합니다. 이번 시간에는 Centos7에서 mysql8.x 를 설치하는 방법을 알아보도록 하겠습니다.</summary></entry><entry><title type="html">Centos 7 설치후 기본설정</title><link href="http://localhost:4000/after-intallation-centos7/" rel="alternate" type="text/html" title="Centos 7 설치후 기본설정" /><published>2019-07-05T00:00:00+09:00</published><updated>2019-07-05T00:00:00+09:00</updated><id>http://localhost:4000/after-intallation-centos7</id><content type="html" xml:base="http://localhost:4000/after-intallation-centos7/">&lt;p&gt;지난 시간에는 CentOS 7을 설치하는 과정을 알아 보았습니다. 이번 시간에는 앞서 설치된 CentOS7를 개발환경에서 사용하기 위해 필요한 설정 작업을 알아보도록 하겠습니다.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 06 Jul 2019 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/mysql/2019/07/06/installation-mysql8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/mysql/2019/07/06/installation-mysql8.html</guid>
+        
+        <category>centos7</category>
+        
+        <category>mysql8</category>
+        
+        
+        <category>tutorial</category>
+        
+        <category>리눅스</category>
+        
+        <category>mysql</category>
+        
+      </item>
+    
+      <item>
+        <title>Centos 7 설치후 기본설정</title>
+        <description>&lt;p&gt;지난 시간에는 CentOS 7을 설치하는 과정을 알아 보았습니다. 이번 시간에는 앞서 설치된 CentOS7를 개발환경에서 사용하기 위해 필요한 설정 작업을 알아보도록 하겠습니다.&lt;/p&gt;
 
 &lt;p&gt;보안과 관련된 selinux와 firewalld 는 참고 정도로만 봐주셨으면 합니다.&lt;/p&gt;
 
@@ -156,11 +190,11 @@ mysql&amp;gt; FLUSH PRIVILEGES&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;history_to_syslog
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nb&quot;&gt;declare &lt;/span&gt;cmd
-  &lt;span class=&quot;nb&quot;&gt;who&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;whoami&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;history &lt;/span&gt;1&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;TTY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;tty&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-  &lt;span class=&quot;nv&quot;&gt;HISNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;basename&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$TTY&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; 
-  &lt;span class=&quot;nv&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;who&lt;/span&gt; |grep pts/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HISNAME&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; |cut &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 2 &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\(&lt;/span&gt;|cut &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 1 &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\)&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;who&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;whoami&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;history &lt;/span&gt;1&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;TTY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;tty&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;HISNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;basename &lt;span class=&quot;nv&quot;&gt;$TTY&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; 
+  &lt;span class=&quot;nv&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;who |grep pts/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HISNAME&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; |cut &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 2 &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\(&lt;/span&gt;|cut &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 1 &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\)&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
 logger &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; local7.notice &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;IP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ip&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;USER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$who&lt;/span&gt;, &lt;span class=&quot;nv&quot;&gt;PID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$$&lt;/span&gt;, &lt;span class=&quot;nv&quot;&gt;PWD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;, &lt;span class=&quot;nv&quot;&gt;CMD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$cmd&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;trap &lt;/span&gt;history_to_syslog DEBUG &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; EXIT
@@ -216,7 +250,7 @@ logger &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; local7.notice &lt;span c
 &lt;span class=&quot;c&quot;&gt;## 그 외 base setting&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# yum install -y epel-release \&lt;/span&gt;
    &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; rpm &lt;span class=&quot;nt&quot;&gt;-Uvh&lt;/span&gt; http://rpms.famillecollet.com/enterprise/remi-release-7.rpm &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; yum &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cmake wget ncurses-devel gcc&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; openssl openssl-devel nss-tools rsync           
+   &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; yum install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cmake wget ncurses-devel gcc&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; openssl openssl-devel nss-tools rsync           
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;서버-부팅시-필요한-서비스만-구동되도록-설정&quot;&gt;서버 부팅시 필요한 서비스만 구동되도록 설정&lt;/h2&gt;
@@ -224,7 +258,30 @@ logger &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; local7.notice &lt;span c
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# ntsysv&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/30.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>sal</name></author><category term="centos7" /><category term="yum" /><category term="selinux" /><category term="firewalld" /><category term="featured" /><summary type="html">지난 시간에는 CentOS 7을 설치하는 과정을 알아 보았습니다. 이번 시간에는 앞서 설치된 CentOS7를 개발환경에서 사용하기 위해 필요한 설정 작업을 알아보도록 하겠습니다.</summary></entry><entry><title type="html">[STEP BY STEP]Centos 7 설치하기</title><link href="http://localhost:4000/installation-centos7/" rel="alternate" type="text/html" title="[STEP BY STEP]Centos 7 설치하기" /><published>2019-07-04T00:00:00+09:00</published><updated>2019-07-04T00:00:00+09:00</updated><id>http://localhost:4000/installation-centos7</id><content type="html" xml:base="http://localhost:4000/installation-centos7/">&lt;p&gt;사실 리눅스를 설치할 일은 그다지 많지 않은것이 현실입니다. 물론 시스템 관리자 입장에서는 자주 있을 수 있는 일지만, 개발자들은 그렇지 않은 경우가 많죠. 하지만, 막상 필요에 의해 설치하는 경우에는 생각이 나지 않아 그때 그때 구글링에 의존해야 하는 경우도 존재 합니다. 그래서, CentOS7 을 설치하는 전 과정을 Step By Step 형식으로 정리해 보았습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/30.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 05 Jul 2019 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/05/after-intallation-centos7.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/05/after-intallation-centos7.html</guid>
+        
+        <category>centos7</category>
+        
+        <category>yum</category>
+        
+        <category>selinux</category>
+        
+        <category>firewalld</category>
+        
+        
+        <category>tutorial</category>
+        
+        <category>리눅스</category>
+        
+      </item>
+    
+      <item>
+        <title>[STEP BY STEP]Centos 7 설치하기</title>
+        <description>&lt;p&gt;사실 리눅스를 설치할 일은 그다지 많지 않은것이 현실입니다. 물론 시스템 관리자 입장에서는 자주 있을 수 있는 일지만, 개발자들은 그렇지 않은 경우가 많죠. 하지만, 막상 필요에 의해 설치하는 경우에는 생각이 나지 않아 그때 그때 구글링에 의존해야 하는 경우도 존재 합니다. 그래서, CentOS7 을 설치하는 전 과정을 Step By Step 형식으로 정리해 보았습니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;설치전-준비물&quot;&gt;설치전 준비물&lt;/h2&gt;
 
@@ -349,16 +406,20 @@ logger &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; local7.notice &lt;span c
 &lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/21.png&quot; alt=&quot;&quot; /&gt;
 &lt;img src=&quot;/assets/post_images/20190704/22.png&quot; alt=&quot;&quot; /&gt;
 &lt;img src=&quot;/assets/post_images/20190704/23.png&quot; alt=&quot;&quot; /&gt;
-&lt;img src=&quot;/assets/post_images/20190704/25.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>sal</name></author><category term="centos7" /><category term="sticky" /><category term="featured" /><summary type="html">사실 리눅스를 설치할 일은 그다지 많지 않은것이 현실입니다. 물론 시스템 관리자 입장에서는 자주 있을 수 있는 일지만, 개발자들은 그렇지 않은 경우가 많죠. 하지만, 막상 필요에 의해 설치하는 경우에는 생각이 나지 않아 그때 그때 구글링에 의존해야 하는 경우도 존재 합니다. 그래서, CentOS7 을 설치하는 전 과정을 Step By Step 형식으로 정리해 보았습니다.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/post_images/20190704/install-centos-7-logo.png" /></entry><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/welcome-to-jekyll/" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2019-02-04T00:00:00+09:00</published><updated>2019-02-04T00:00:00+09:00</updated><id>http://localhost:4000/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/welcome-to-jekyll/">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
-
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name>sal</name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/demo1.jpg" /></entry></feed>
+&lt;img src=&quot;/assets/post_images/20190704/25.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 04 Jul 2019 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/04/installation-centos7.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/04/installation-centos7.html</guid>
+        
+        <category>centos7</category>
+        
+        
+        <category>tutorial</category>
+        
+        <category>리눅스</category>
+        
+      </item>
+    
+  </channel>
+</rss>

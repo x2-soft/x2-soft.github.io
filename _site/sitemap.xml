@@ -1,52 +1,425 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>http://localhost:4000/welcome-to-jekyll/</loc>
-<lastmod>2019-02-04T00:00:00+09:00</lastmod>
-</url>
-<url>
-<loc>http://localhost:4000/installation-centos7/</loc>
-<lastmod>2019-07-04T00:00:00+09:00</lastmod>
-</url>
-<url>
-<loc>http://localhost:4000/after-intallation-centos7/</loc>
-<lastmod>2019-07-05T00:00:00+09:00</lastmod>
-</url>
-<url>
-<loc>http://localhost:4000/installtion-mysql8/</loc>
-<lastmod>2019-07-08T00:00:00+09:00</lastmod>
-</url>
-<url>
-<loc>http://localhost:4000/404/</loc>
-</url>
-<url>
-<loc>http://localhost:4000/about.html</loc>
-</url>
-<url>
-<loc>http://localhost:4000/author-jane.html</loc>
-</url>
-<url>
-<loc>http://localhost:4000/author-sal.html</loc>
-</url>
-<url>
-<loc>http://localhost:4000/authors-list.html</loc>
-</url>
-<url>
-<loc>http://localhost:4000/buy-me-a-coffee.html</loc>
-</url>
-<url>
-<loc>http://localhost:4000/categories.html</loc>
-</url>
-<url>
-<loc>http://localhost:4000/contact.html</loc>
-</url>
-<url>
-<loc>http://localhost:4000/</loc>
-</url>
-<url>
-<loc>http://localhost:4000/privacy-policy.html</loc>
-</url>
-<url>
-<loc>http://localhost:4000/tags.html</loc>
-</url>
-</urlset>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>x2soft 기술 블로그</title>
+    <description>Tech Blog</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/sitemap.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 08 Jul 2019 13:30:57 +0900</pubDate>
+    <lastBuildDate>Mon, 08 Jul 2019 13:30:57 +0900</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Centos7 에서 mysql8.x 설치하기</title>
+        <description>&lt;p&gt;개발환경에서 mysql8은 도커기반에서의 설치가 가장 간편합니다. 이번 시간에는 Centos7에서 mysql8.x 를 설치하는 방법을 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;기회가 된다면 도커기반으로 mysql8.x 를 설치하는 방법도 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;1-yum-repository-추가-및-설치&quot;&gt;1. yum Repository 추가 및 설치&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# rpm -Uvh https://repo.mysql.com/mysql57-community-release-el7-11.noarch.rpm&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# yum --enablerepo=mysql80-community install -y mysql-community-server&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;2-mysql-설정&quot;&gt;2. mysql 설정&lt;/h2&gt;
+
+&lt;h3 id=&quot;2-1-data-디렉토리-생성&quot;&gt;2-1. data 디렉토리 생성&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# mkdir -p /data/mysql&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# chown mysql:mysql /data/mysql&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;2-2-mycnf-수정&quot;&gt;2-2. my.cnf 수정&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# vi /etc/my.cnf&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[client]
+socket=/data/mysql/mysql.sock
+
+## data 디렉토리 변경
+datadir=/data/mysql
+socket=/data/mysql/mysql.sock
+## [mysqld] sectionc에 아래 내용 추가
+user = mysql
+port = 3306
+innodb_dedicated_server=ON
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;3-mysql-구동&quot;&gt;3. mysql 구동&lt;/h2&gt;
+
+&lt;h3 id=&quot;3-1-mysql-실행중지재시작&quot;&gt;3-1. mysql 실행/중지/재시작&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# systemctl start[stop|restart] mysql&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-2-시스템-부팅시-자동-실행&quot;&gt;3-2. 시스템 부팅시 자동 실행&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# systemctl enable mysqld&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-3-초기-임시-비밀번호-확인&quot;&gt;3-3. 초기 임시 비밀번호 확인&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# cat /var/log/mysqld.log | grep -i 'temporary password'&lt;/span&gt;
+2019-07-02T04:23:44.741210Z 5 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Note] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;MY-010454] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Server] A temporary password is generated &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;root@localhost: :XKcwd&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;pv8se
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-4-비밀번호-변경&quot;&gt;3-4. 비밀번호 변경&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# mysql_secure_installation&lt;/span&gt;
+Securing the MySQL server deployment.
+
+Enter password &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;user root: :XKcwd&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;pv8se &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;위에서 확인한 임시 비번&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+New password: 새 비밀번호 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;root&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+Re-enter new password: 비밀번호 확인
+
+Estimated strength of the password: 100 
+
+Do you wish to &lt;span class=&quot;k&quot;&gt;continue &lt;/span&gt;with the password provided?&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y    &lt;span class=&quot;c&quot;&gt;## 변경 된 비밀번호를 계속 사용하시겠습니까?&lt;/span&gt;
+
+Remove anonymous users? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y  &lt;span class=&quot;c&quot;&gt;## 익명사용자를 삭제 할까요?&lt;/span&gt;
+
+Success.
+
+Disallow root login remotely? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y  &lt;span class=&quot;c&quot;&gt;##원격 root 로그인 차단?&lt;/span&gt;
+
+Success.
+
+Remove &lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;database and access to it? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y  &lt;span class=&quot;c&quot;&gt;## 테스트 데이터베이스 삭제?&lt;/span&gt;
+
+ - Dropping &lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;database...
+
+Success.
+
+Reload privilege tables now? &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Press y|Y &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Yes, any other key &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;No&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; : y  &lt;span class=&quot;c&quot;&gt;##관리자 권한 테이블 다시 로드할까요?&lt;/span&gt;
+
+Success.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-5-mysql-접속&quot;&gt;3-5. mysql 접속&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# mysql -uroot -p&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-6-mysql-패스워드-정책-설정&quot;&gt;3-6. mysql 패스워드 정책 설정&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mysql&amp;gt; show variables like &lt;span class=&quot;s1&quot;&gt;'validate_password%'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
++--------------------------------------+-------+
+| Variable_name                        | Value |
++--------------------------------------+-------+
+| validate_password.check_user_name    | ON    |
+| validate_password.dictionary_file    |       |
+| validate_password.length             | 8     |
+| validate_password.mixed_case_count   | 1     |
+| validate_password.number_count       | 1     |
+| validate_password.policy             | LOW   |
+| validate_password.special_char_count | 1     |
++--------------------------------------+-------+
+7 rows &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0.00 sec&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## 패스워드 policy를 변경하고자 하면 아래와 같이 설정 함. &lt;/span&gt;
+mysql&amp;gt; SET GLOBAL validate_password.policy&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;LOW&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## 위와 같이 설정하면 mysql 재시작 될 때 다시 기본 정책으로 변경 됨으로 my.cnf 에 아래와 같이 추가 하면 재시작시에도 설정값으로 시작됨. &lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@x2 ~]# vi /etc/my.cnf
+&lt;span class=&quot;nv&quot;&gt;validate_password_policy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;LOW            &lt;span class=&quot;c&quot;&gt;## 추가&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## mysql DB, 계정 추가&lt;/span&gt;
+mysql&amp;gt; ALTER USER &lt;span class=&quot;s2&quot;&gt;&quot;root&quot;&lt;/span&gt;@&lt;span class=&quot;s2&quot;&gt;&quot;localhost&quot;&lt;/span&gt; IDENTIFIED BY &lt;span class=&quot;s2&quot;&gt;&quot;examples!@#$&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;root&quot;&lt;/span&gt;@&lt;span class=&quot;s2&quot;&gt;&quot;localhost&quot;&lt;/span&gt; PASSWORD EXPIRE NEVER&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+mysql&amp;gt; CREATE DATABASE project DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+mysql&amp;gt; CREATE USER &lt;span class=&quot;s2&quot;&gt;&quot;test_project&quot;&lt;/span&gt;@&lt;span class=&quot;s2&quot;&gt;&quot;%&quot;&lt;/span&gt; IDENTIFIED WITH mysql_native_password BY &lt;span class=&quot;s2&quot;&gt;&quot;examples!@#$&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+mysql&amp;gt; GRANT ALL ON project.&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; TO &lt;span class=&quot;s2&quot;&gt;&quot;test_project&quot;&lt;/span&gt;@&lt;span class=&quot;s2&quot;&gt;&quot;%&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+mysql&amp;gt; FLUSH PRIVILEGES&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 06 Jul 2019 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/mysql/2019/07/06/installation-mysql8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/mysql/2019/07/06/installation-mysql8.html</guid>
+        
+        <category>centos7</category>
+        
+        <category>mysql8</category>
+        
+        
+        <category>tutorial</category>
+        
+        <category>리눅스</category>
+        
+        <category>mysql</category>
+        
+      </item>
+    
+      <item>
+        <title>Centos 7 설치후 기본설정</title>
+        <description>&lt;p&gt;지난 시간에는 CentOS 7을 설치하는 과정을 알아 보았습니다. 이번 시간에는 앞서 설치된 CentOS7를 개발환경에서 사용하기 위해 필요한 설정 작업을 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;p&gt;보안과 관련된 selinux와 firewalld 는 참고 정도로만 봐주셨으면 합니다.&lt;/p&gt;
+
+&lt;p&gt;참고로 아래의 과정은 모두 root 로 진행합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;yum-업데이트&quot;&gt;yum 업데이트&lt;/h2&gt;
+
+&lt;p&gt;업데이트가 필요한 패키지들을 업데이트하기 위해 필요합니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# yum update -y&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;selinux-해제하기&quot;&gt;selinux 해제하기&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# vi /etc/selinux/config&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;SELIUNX=enforcing을 SELINUX=disable 로 수정
+&lt;img src=&quot;/assets/post_images/20190704/26.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;firewalld-해제-및-명령어-history-logging&quot;&gt;firewalld 해제 및 명령어 history logging&lt;/h2&gt;
+
+&lt;p&gt;방화벽 해제&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# systemctl stop firewalld&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;명령어 history logging&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# vi /etc/profile.d/cmd.sh&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;cmd.sh 파일에 아래의 내용 추가&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;history_to_syslog
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;declare &lt;/span&gt;cmd
+  &lt;span class=&quot;nv&quot;&gt;who&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;whoami&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;history &lt;/span&gt;1&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;TTY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;tty&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;HISNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;basename &lt;span class=&quot;nv&quot;&gt;$TTY&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; 
+  &lt;span class=&quot;nv&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;who |grep pts/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HISNAME&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; |cut &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 2 &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\(&lt;/span&gt;|cut &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 1 &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\)&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+logger &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; local7.notice &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;IP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ip&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;USER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$who&lt;/span&gt;, &lt;span class=&quot;nv&quot;&gt;PID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$$&lt;/span&gt;, &lt;span class=&quot;nv&quot;&gt;PWD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;, &lt;span class=&quot;nv&quot;&gt;CMD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$cmd&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;trap &lt;/span&gt;history_to_syslog DEBUG &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; EXIT
+&lt;span class=&quot;nv&quot;&gt;HISTSIZE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;10000
+&lt;span class=&quot;nv&quot;&gt;HISTFILESIZE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1000000
+&lt;span class=&quot;nv&quot;&gt;HISTTIMEFORMAT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;%F %T &quot;&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTFILESIZE HISTTIMEFORMAT INPUTRC
+&lt;span class=&quot;nb&quot;&gt;declare&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; HISTFILE
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;환경변수 등록 및 갱신&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# source /etc/profile.d/cmd.sh&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;syslog 파일 설정&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# vi /etc/rsyslog.conf&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;local7.notice    /var/log/cmdlog # 추가&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/27.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;syslog 재시작&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# systemctl stop rsyslog.service&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# systemctl start rsyslog.service&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;확인&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/28.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;네트워크-설정-확인&quot;&gt;네트워크 설정 확인&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# vi /etc/sysconfig/network-scripts/ifcfg-ens33&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/29.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;기타-필요-패키지-설치&quot;&gt;기타 필요 패키지 설치&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;## ifconfig, netstat, arp, route 등의 명령어를 사용하기 위한 패키지&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# yum install -y net-tool                            &lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## 네트워크 tui 환경으로 설정할 수 있게 하는 패키지&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# yum -y install NetworkManager-tui       &lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## 서비스 데몬 관리 tui  환경으로 설정할 수 있게 하는 패키지&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# yum install -y ntsysv    &lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## 그 외 base setting&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# yum install -y epel-release \&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; rpm &lt;span class=&quot;nt&quot;&gt;-Uvh&lt;/span&gt; http://rpms.famillecollet.com/enterprise/remi-release-7.rpm &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; yum install &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;cmake wget ncurses-devel gcc&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; openssl openssl-devel nss-tools rsync           
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;서버-부팅시-필요한-서비스만-구동되도록-설정&quot;&gt;서버 부팅시 필요한 서비스만 구동되도록 설정&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# ntsysv&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/30.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 05 Jul 2019 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/05/after-intallation-centos7.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/05/after-intallation-centos7.html</guid>
+        
+        <category>centos7</category>
+        
+        <category>yum</category>
+        
+        <category>selinux</category>
+        
+        <category>firewalld</category>
+        
+        
+        <category>tutorial</category>
+        
+        <category>리눅스</category>
+        
+      </item>
+    
+      <item>
+        <title>[STEP BY STEP]Centos 7 설치하기</title>
+        <description>&lt;p&gt;사실 리눅스를 설치할 일은 그다지 많지 않은것이 현실입니다. 물론 시스템 관리자 입장에서는 자주 있을 수 있는 일지만, 개발자들은 그렇지 않은 경우가 많죠. 하지만, 막상 필요에 의해 설치하는 경우에는 생각이 나지 않아 그때 그때 구글링에 의존해야 하는 경우도 존재 합니다. 그래서, CentOS7 을 설치하는 전 과정을 Step By Step 형식으로 정리해 보았습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;설치전-준비물&quot;&gt;설치전 준비물&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Centos7 이미지 파일&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso&quot;&gt;CentOS7 다운로드&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;iso 파일을 USB 메모리에 저장하기 위한 UTIL 설치&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;http://sourceforge.net/projects/win32diskimager/&quot;&gt;win32diskimager 다운로드&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/win32diskimager.png&quot; alt=&quot;설정&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;설치&quot;&gt;설치&lt;/h2&gt;
+
+&lt;h3 id=&quot;install-centos-7-선택&quot;&gt;Install Centos 7 선택&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/2.png&quot; alt=&quot;Install CentOS 7 선택&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;설치-과정에서-사용할-언어-선택&quot;&gt;설치 과정에서 사용할 언어 선택&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/3.png&quot; alt=&quot;언어 선택&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;소프트웨어-선택s&quot;&gt;소프트웨어 선택(S)&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/4.png&quot; alt=&quot;소프트웨어 선택&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;기본환경-선택&quot;&gt;기본환경 선택&lt;/h3&gt;
+
+&lt;p&gt;필요한 패키지들을 별도로 설치하기 위해 최소 설치를 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/5.png&quot; alt=&quot; 선택&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;설치대상-선택&quot;&gt;설치대상 선택&lt;/h3&gt;
+
+&lt;p&gt;자동 파티션 설정을 선택합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/6.png&quot; alt=&quot;설치대상선택&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;디스크-선택-및-파티션-설정&quot;&gt;디스크 선택 및 파티션 설정&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/7.png&quot; alt=&quot;디스크 선택 및 파티션 설정&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;파티션별 설정은 아래와 같이 진행하도록 하겠습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;/boot - 500M ~ 1G&lt;/li&gt;
+  &lt;li&gt;swap - 메모리크기의 2배 정도&lt;/li&gt;
+  &lt;li&gt;/ - 20G&lt;/li&gt;
+  &lt;li&gt;/data - 남은 용량 모두 사용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;boot-파티션-생성&quot;&gt;/boot 파티션 생성&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/8.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/9.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/10.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;swap-파티션-생성&quot;&gt;swap 파티션 생성&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/11.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/12.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;-파티션-생성&quot;&gt;/ 파티션 생성&lt;/h3&gt;
+
+&lt;p&gt;파티션을 생성하기에 앞서 장치 유형과 파일 시스템에 대해서 파악후 적절한 선택을 할 수 있도록 합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;lvm&quot;&gt;LVM&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;논리적 스토리지를 생성하여 물리적 디스크 추가, 조정 등의 유연한 관리 및 확장에 용이&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;xfs&quot;&gt;xfs&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;900만 TB 까지 지원이 가능(32비트는 16TB)&lt;/li&gt;
+    &lt;li&gt;마운트된 상태에서도 파일시스템 확장이 가능&lt;/li&gt;
+    &lt;li&gt;포맷시간이 매우 빠름&lt;/li&gt;
+    &lt;li&gt;파일시스템 체크시 매우 빠른 속도를 낼수 있음&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;대용량 위주의 파일시스템에 최적화되어 작은 사이즈의 파일에선 되려 속도 저하가 발생&lt;/li&gt;
+    &lt;li&gt;파일 시스템 문제 발생시 커널 메시지가 나오지 않을 가능성이 존재&lt;/li&gt;
+    &lt;li&gt;디버그 옵션이 없어 삭제된 파일은 복구 불가능&lt;/li&gt;
+    &lt;li&gt;파일시스템 복구시 2TB 당 1GB 의 물리 메모리 필요&lt;/li&gt;
+    &lt;li&gt;별도의 데몬에서 파일 시스템을 관리&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/13.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;data-파티션-생성&quot;&gt;/data 파티션 생성&lt;/h3&gt;
+
+&lt;p&gt;별도의 home 파티션은 생성하지 않습니다. 상황에 따라 적절하게 생성해주시면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/14.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/15.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;변경-사항-저장&quot;&gt;변경 사항 저장&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/16.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;네트웍-관련-설정&quot;&gt;네트웍 관련 설정&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/17.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/18.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/19.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/20.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;설치-시작&quot;&gt;설치 시작&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post_images/20190704/21.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/22.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/23.png&quot; alt=&quot;&quot; /&gt;
+&lt;img src=&quot;/assets/post_images/20190704/25.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 04 Jul 2019 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/04/installation-centos7.html</link>
+        <guid isPermaLink="true">http://localhost:4000/tutorial/%EB%A6%AC%EB%88%85%EC%8A%A4/2019/07/04/installation-centos7.html</guid>
+        
+        <category>centos7</category>
+        
+        
+        <category>tutorial</category>
+        
+        <category>리눅스</category>
+        
+      </item>
+    
+  </channel>
+</rss>
